@@ -8,12 +8,12 @@ from tensorflow.keras.models import load_model
 from streamlit_webrtc import webrtc_streamer, VideoProcessorBase, WebRtcMode
 
 
-@st.cache_resource
+
 def load_detector():
     return cv2.CascadeClassifier("./haarcascade_frontalface_default.xml")
 
 
-@st.cache_resource
+
 def load_model_file():
     return load_model("./smile.hdf5")
 
