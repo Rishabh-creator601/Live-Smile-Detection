@@ -44,8 +44,6 @@ class SmileDetector(VideoProcessorBase):
 
         # Skip frames for performance
         if self.frame_count % 5 != 0:
-            cv2.putText(image, f"FPS: {fps:.2f}", (10, 30),
-                        cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
             return av.VideoFrame.from_ndarray(image, format="bgr24")
 
         # Convert to grayscale for face detection
