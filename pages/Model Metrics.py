@@ -13,7 +13,6 @@ st.download_button(
     label="Download Model",
     data="./smile.hdf5",
     file_name="smile_model.hdf5",
-    icon=":material/download:",
 )
 
 image1 =  "./media/smile_conv.png"

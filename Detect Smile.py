@@ -6,14 +6,14 @@ from tensorflow.keras.models import load_model
 
 
 
-@st.cache(allow_output_mutation=True)
+@st.cache_resource()
 def load_detector():
     detector  =  cv2.CascadeClassifier("./haarcascade_frontalface_default.xml")
     return detector
  
  
  
-@st.cache(allow_output_mutation=True)
+@st.cache_resource()
 def load_Model():
     model = load_model("./smile.hdf5")
     return model  
