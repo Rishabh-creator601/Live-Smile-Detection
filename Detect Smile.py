@@ -1,12 +1,13 @@
 import streamlit as st
 import cv2 ,os
 import numpy as  np 
-from keras.preprocessing.image import img_to_array
-from keras.models import load_model
+from tensorflow.keras.preprocessing.image import img_to_array
+from tensorflow.keras.models import load_model
 
 
 detector  =  cv2.CascadeClassifier(os.path.join("./haarcascade_frontalface_default.xml"))
-model = load_model("./smile.hdf5")
+
+model = load_model("https://github.com/Rishabh-creator601/Live-Smile-Detection/blob/master/smile.hdf5")
 
 
 st.title("Live Smile Detection ")
