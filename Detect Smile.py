@@ -6,7 +6,8 @@ from tensorflow.keras.preprocessing.image import img_to_array
 from tensorflow.keras.models import load_model
 from streamlit_webrtc import webrtc_streamer, VideoProcessorBase, WebRtcMode
 
-# Load the face detector and smile detection model
+
+
 def load_detector():
     return cv2.CascadeClassifier("./haarcascade_frontalface_default.xml")
 
@@ -21,7 +22,7 @@ st.title("Live Smile Detection with WebRTC")
 st.sidebar.success("Select a page above.")
 st.markdown("* **To stop the webcam, switch the page or close the app**")
 
-# Define the video processor
+
 class SmileDetector(VideoProcessorBase):
     def recv(self, frame):
         image = frame.to_ndarray(format="bgr24")
@@ -44,7 +45,6 @@ class SmileDetector(VideoProcessorBase):
 
         return av.VideoFrame.from_ndarray(image, format="bgr24")
 
-# Streamlit WebRTC streamer
 webrtc_streamer(
     key="smile-detection",
     mode=WebRtcMode.SENDRECV,
