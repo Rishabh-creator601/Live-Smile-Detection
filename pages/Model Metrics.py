@@ -5,7 +5,6 @@ st.markdown("<h1 style='text-align: center; color:Blue;'>Model Analysis </h1>", 
     
     
 st.header("Model Details ")
-st.html("<hr />")
 st.markdown("- Model has Accuracy of 91%")
 st.markdown("- Model is trained with a simple shallow convolutional network")
 st.download_button(
@@ -23,12 +22,10 @@ col1,col2  = st.columns(2)
 
 with col1:
     st.header("Model Architecture")
-    st.html("<hr />")
     st.image(image1)
 
 with col2:
     st.header("Model Progress")
-    st.html("<hr />")
     st.image(image2)
     
 
