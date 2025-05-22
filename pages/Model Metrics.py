@@ -6,7 +6,7 @@ st.title("Model Analysis ")
 
     
     
-st.header("Model Details ",divider=True)
+st.header("Model Details ")
 st.markdown("- Model has Accuracy of 91%")
 st.markdown("- Model is trained with a simple shallow convolutional network")
 st.download_button(
@@ -24,11 +24,11 @@ col1,col2  = st.columns(2)
 
 
 with col1:
-    st.header("Model Architecture",divider=True)
+    st.header("Model Architecture")
     st.image(image1)
 
 with col2:
-    st.header("Model Progress",divider=True)
+    st.header("Model Progress")
     st.image(image2)
     
 
