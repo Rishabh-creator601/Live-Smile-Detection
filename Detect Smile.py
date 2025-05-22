@@ -21,7 +21,7 @@ model = load_model_file()
 st.title("Live Smile Detection with WebRTC")
 st.sidebar.success("Select a page above.")
 st.markdown("* **To stop the webcam, switch the page or close the app**")
-st.markdown("PLEASE REMOVE YOUR SPECTECLES / GLASSES , the model is trained for person with glasses")
+st.markdown("PLEASE REMOVE YOUR SPECTECLES / GLASSES , the model is trained for person without  glasses")
 
 
 class SmileDetector(VideoProcessorBase):
