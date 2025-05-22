@@ -43,8 +43,7 @@ class SmileDetector(VideoProcessorBase):
         self.last_time = now
 
         # Skip frames for performance
-        if self.frame_count % 5 != 0:
-            return av.VideoFrame.from_ndarray(image, format="bgr24")
+        
 
         # Convert to grayscale for face detection
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -64,7 +63,8 @@ class SmileDetector(VideoProcessorBase):
                         cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
             cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 2)
 
-        return av.VideoFrame.from_ndarray(image, format="bgr24")
+        if self.frame_count % 5 != 0:
+            return av.VideoFrame.from_ndarray(image, format="bgr24")
 
 
 webrtc_streamer(
