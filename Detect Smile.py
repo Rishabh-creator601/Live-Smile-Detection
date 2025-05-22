@@ -5,9 +5,24 @@ from tensorflow.keras.preprocessing.image import img_to_array
 from tensorflow.keras.models import load_model
 
 
-detector  =  cv2.CascadeClassifier(os.path.join("./haarcascade_frontalface_default.xml"))
 
-model = load_model("https://github.com/Rishabh-creator601/Live-Smile-Detection/blob/master/smile.hdf5")
+@st.cache(allow_output_mutation=True)
+def load_detector():
+    detector  =  cv2.CascadeClassifier("./haarcascade_frontalface_default.xml")
+    return detector
+ 
+ 
+ 
+@st.cache(allow_output_mutation=True)
+def load_Model():
+    model = load_model("./smile.hdf5")
+    return model  
+
+
+
+
+detector = load_detector()
+model = load_Model()
 
 
 st.title("Live Smile Detection ")
