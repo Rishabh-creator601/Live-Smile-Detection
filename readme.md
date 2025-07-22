@@ -3,7 +3,8 @@
 A deep learning project to detect smiles in real-time images using a Convolutional Neural Network (CNN) trained from scratch. Built with Python, OpenCV, NumPy, and TensorFlow/Keras.
 
 
-### The app is deployed at https://live-smile-detection.streamlit.app/Model_Metrics
+### The app is deployed at https://live-smile-detection.streamlit.app/
+### Kaggle Notebook  : https://www.kaggle.com/code/rishabh2007/smile-detection-92
 
 ## 📌 Project Overview
 
