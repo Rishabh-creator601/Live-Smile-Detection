@@ -26,6 +26,13 @@ Here is the demo how the page looks like
 - **Optimizer**: Adam  
 - **Accuracy Achieved**: ~94% on validation set
 
+## Model Metrics :
+<img width="1132" height="367" alt="Image" src="https://github.com/user-attachments/assets/dd9d3718-02b1-4fb5-a156-fd1dc44cc7fa" />
+
+## Model Results :
+
+<img width="1132" height="462" alt="Image" src="https://github.com/user-attachments/assets/f2a303f4-6624-4d2d-911c-c5784b7f295e" />
+
 ---
 
 ## 🗂️ Dataset
