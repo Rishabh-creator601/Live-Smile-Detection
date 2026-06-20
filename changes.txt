@@ -28,6 +28,17 @@ File modified: Detect Smile.py
      such as Twilio Network Traversal Service (dynamic credentials via API)
      or a self-hosted coturn server, with credentials read from st.secrets.
 
+3. Fixed OpenCV ImportError on deployment
+   (ImportError: libgthread-2.0.so.0: cannot open shared object file)
+   - requirements.txt: removed opencv-python==4.11.0.86 and kept only
+     opencv-python-headless==4.11.0.86. Having both installed caused the
+     GUI-dependent build to be used, which needs system GUI libraries not
+     present on a headless server.
+   - packages.txt: added libglib2.0-0 (provides libgthread-2.0.so.0) alongside
+     the existing libgl1, as a safety net for the OpenCV shared-library deps.
+   - Why: The server has no display/GUI libraries. opencv-python-headless is
+     the build intended for servers and avoids these missing-.so errors.
+
 2. Fixed frame return bug in SmileDetector.recv()
    - Before: the frame was only returned when (frame_count % 5 != 0), so every
      5th frame returned None.
