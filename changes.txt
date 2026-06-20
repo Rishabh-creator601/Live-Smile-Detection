@@ -49,3 +49,36 @@ File modified: Detect Smile.py
    - Why: recv() must always return a frame; returning None every 5th frame
      caused visible video stutter. The skip logic was also incomplete since it
      never actually skipped the face-detection work, only dropped the output.
+
+4. Reworked the app to follow the official streamlit-webrtc deployment pattern
+   - Replaced the static RTC_CONFIGURATION dict with a get_ice_servers() helper:
+       * If TWILIO_ACCOUNT_SID / TWILIO_AUTH_TOKEN are present in st.secrets, it
+         fetches short-lived TURN credentials from Twilio's Network Traversal
+         Service (client.tokens.create().ice_servers). This is the method the
+         streamlit-webrtc docs recommend for deployed apps and is the reliable
+         fix for the "Connection is taking longer than expected" error.
+       * If those secrets are NOT set, it falls back to the free public
+         STUN + Open Relay TURN servers (fine for testing, may be unreliable).
+   - webrtc_streamer() now receives rtc_configuration={"iceServers": get_ice_servers()}.
+   - Decorated load_detector() and load_model_file() with @st.cache_resource so
+     the Haar cascade and Keras model load once instead of on every rerun.
+   - Cleaned up unused imports (numpy) and the leftover "skip frames" comment;
+     FPS is now stored on the processor instead of an unused local variable.
+   - requirements.txt: added twilio==9.3.7 for the dynamic TURN credentials.
+
+   How to enable Twilio TURN (recommended for production):
+     1. Create a free Twilio account and copy the Account SID and Auth Token.
+     2. In the deployment's secrets (Streamlit Cloud: App settings -> Secrets),
+        add:
+            TWILIO_ACCOUNT_SID = "ACxxxxxxxx..."
+            TWILIO_AUTH_TOKEN  = "your_auth_token"
+     3. Redeploy. Without these the app still runs using the free fallback.
+
+5. Reverted change #4 (per request: "undo the code to web rtc")
+   - Detect Smile.py: removed the Twilio get_ice_servers() helper and the
+     @st.cache_resource decorators. Restored the plain streamlit-webrtc setup
+     with a static RTC_CONFIGURATION (Google STUN + free Open Relay TURN), as
+     in change #1/#1b.
+   - requirements.txt: removed twilio==9.3.7 (no longer needed).
+   - Net effect: the app uses streamlit-webrtc with the static STUN/TURN
+     config; no Twilio dependency or secrets required.
