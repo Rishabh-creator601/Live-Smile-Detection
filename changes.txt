@@ -34,10 +34,13 @@ File modified: Detect Smile.py
      opencv-python-headless==4.11.0.86. Having both installed caused the
      GUI-dependent build to be used, which needs system GUI libraries not
      present on a headless server.
-   - packages.txt: added libglib2.0-0 (provides libgthread-2.0.so.0) alongside
-     the existing libgl1, as a safety net for the OpenCV shared-library deps.
+   - packages.txt: kept only libgl1. (libglib2.0-0 was briefly added as a
+     safety net but REMOVED because the deployment's apt repo could not satisfy
+     its dependencies — libffi7/libpcre3 not installable — which broke the
+     build. It is not needed once opencv-python-headless is the only OpenCV.)
    - Why: The server has no display/GUI libraries. opencv-python-headless is
-     the build intended for servers and avoids these missing-.so errors.
+     the build intended for servers and avoids these missing-.so errors, so no
+     extra system GUI libraries are required.
 
 2. Fixed frame return bug in SmileDetector.recv()
    - Before: the frame was only returned when (frame_count % 5 != 0), so every
