@@ -1,0 +1,26 @@
+Changes Log
+===========
+
+File modified: Detect Smile.py
+
+1. Added WebRTC STUN server configuration
+   - Added an RTC_CONFIGURATION dictionary with Google's public STUN server
+     (stun:stun.l.google.com:19302).
+   - Passed it to webrtc_streamer() via the new rtc_configuration argument.
+   - Why: After deployment the browser and server are on different networks
+     behind NAT/firewalls. Without a STUN/TURN (ICE) server, WebRTC cannot
+     negotiate a peer connection, which caused the error:
+     "Connection is taking longer than expected. Check your network or ask
+     the developer for STUN/TURN settings if the problem persists."
+   - Note: STUN alone may fail on strict/symmetric NAT networks. If the error
+     persists for some users, a TURN server (e.g. Open Relay, Twilio, or a
+     self-hosted coturn) should be added to the iceServers list, with
+     credentials stored in st.secrets rather than hardcoded.
+
+2. Fixed frame return bug in SmileDetector.recv()
+   - Before: the frame was only returned when (frame_count % 5 != 0), so every
+     5th frame returned None.
+   - After: recv() now always returns the processed video frame.
+   - Why: recv() must always return a frame; returning None every 5th frame
+     caused visible video stutter. The skip logic was also incomplete since it
+     never actually skipped the face-detection work, only dropped the output.

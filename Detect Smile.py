@@ -63,13 +63,17 @@ class SmileDetector(VideoProcessorBase):
                         cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
             cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 2)
 
-        if self.frame_count % 5 != 0:
-            return av.VideoFrame.from_ndarray(image, format="bgr24")
+        return av.VideoFrame.from_ndarray(image, format="bgr24")
 
+
+RTC_CONFIGURATION = {
+    "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
+}
 
 webrtc_streamer(
     key="smile-detection",
     mode=WebRtcMode.SENDRECV,
+    rtc_configuration=RTC_CONFIGURATION,
     video_processor_factory=SmileDetector,
     media_stream_constraints={"video": True, "audio": False},
     async_processing=True,
