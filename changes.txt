@@ -17,6 +17,17 @@ File modified: Detect Smile.py
      self-hosted coturn) should be added to the iceServers list, with
      credentials stored in st.secrets rather than hardcoded.
 
+1b. Added free public TURN servers (Open Relay / metered.ca) to RTC_CONFIGURATION
+   - STUN alone was not enough on the cloud deployment, so TURN relay servers
+     were added (ports 80, 443, and 443 over TCP) using the public
+     openrelayproject credentials.
+   - Why: Cloud deployments (e.g. Streamlit Community Cloud) usually require
+     media to be relayed through a TURN server; STUN cannot relay traffic.
+   - Caveat: These free public TURN credentials are for testing and may be
+     rate-limited or unreliable. For production use a dedicated TURN provider
+     such as Twilio Network Traversal Service (dynamic credentials via API)
+     or a self-hosted coturn server, with credentials read from st.secrets.
+
 2. Fixed frame return bug in SmileDetector.recv()
    - Before: the frame was only returned when (frame_count % 5 != 0), so every
      5th frame returned None.
